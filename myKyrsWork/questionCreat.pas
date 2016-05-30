@@ -163,7 +163,7 @@ begin
   if(image9.Visible) then
     if(Memo1.Text<>'')then
     begin
-      form9.StringGrid1.Cells[1,form9.StringGrid1.Row]:=Memo1.Text;
+      form9.StringGrid1.Cells[1,form9.StringGrid1.Row]:=StringReplace(StringReplace(memo1.Text,#10,'',[rfReplaceAll]),#13,' ',[rfReplaceAll]);
       form9.StringGrid1.Cells[3,form9.StringGrid1.Row]:=ExtractFileName(gl);
       form9.StringGrid1.Cells[5,form9.StringGrid1.Row]:='';
       case ComboBox1.ItemIndex of
@@ -193,7 +193,6 @@ begin
           form9.StringGrid1.Cells[2,form9.StringGrid1.Row]:=form9.StringGrid1.Cells[2,form9.StringGrid1.Row]+ListBox1.Items[i]+'_';
           form9.StringGrid1.Cells[5,form9.StringGrid1.Row]:=form9.StringGrid1.Cells[5,form9.StringGrid1.Row]+ListBox1.Items[i]+'&';
         end;
-
       end;
       end;
       compliteMessage(1);

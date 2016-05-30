@@ -79,6 +79,8 @@ var
   oe,chList: TStringList;
 begin
   form10.RadioGroup1.Items.Clear;
+  form10.CheckListBox1.Items.Clear;
+  Form10.Edit1.Text:='';
   randomize();
   oe := TStringList.Create;
   rr:=random((sl.Count div 5));
@@ -104,7 +106,7 @@ begin
   end;
   if sl[rr*5+3]='1' then
   begin
-    otvet:= sl[rr*5+4];
+    otvet:= sl[rr*5+1];
     ExtractStrings(['&'],['&'],PChar(sl[rr*5+4]),oe);
     for i:=0 to oe.Count-1 do
       form10.CheckListBox1.Items.Add(oe[i]);
@@ -112,8 +114,8 @@ begin
   end;
   if sl[rr*5+3]='2' then
   begin
-    otvet:= sl[rr*5+4];
-    Form10.Edit1.Visible:=False;
+    otvet:= sl[rr*5+1];
+    Form10.Edit1.Visible:=True;
   end;
     form10.Caption:='Вопрос № '+inttostr(nomv);
 end;
@@ -213,7 +215,7 @@ end;
 
 procedure TForm10.Image3Click(Sender: TObject);
 begin
-  if(sl.Count<=39)then
+  if(sl.Count<=49)then
   begin
     form10.Enabled:=false;
     MessageBox(0,'Для начала теста по теме необходимо минимум 10 вопросов! Добавьте вопросы в панеле администратора','Информация', MB_OK Or MB_ICONINFORMATION);
@@ -276,8 +278,30 @@ var
   realOtvet:TStringList;
 begin
   if(nomv=10) then
-    if(RadioGroup1.Items[RadioGroup1.ItemIndex]=otvet)then
-      inc(bal);
+  begin
+    if(RadioGroup1.Visible=True)then
+    begin
+      if(RadioGroup1.Items[RadioGroup1.ItemIndex]=otvet)then
+        inc(bal);
+    end;
+    if (CheckListBox1.Visible = True) then
+    begin
+      for i:=0 to CheckListBox1.Items.Count-1 do
+        if (CheckListBox1.Checked[i]) then
+          userOtvet:=userOtvet+CheckListBox1.Items[i]+'_';
+      if(userOtvet=otvet)then
+        inc(bal);
+    end;
+    if (Edit1.Visible = True) then
+    begin
+      realOtvet := TStringList.Create;
+      ExtractStrings(['_'],['_'],PChar(otvet),realOtvet);
+      for i:=0 to realOtvet.Count-1 do
+        if Form10.Edit1.Text=realOtvet[i] then
+          inc(bal);
+
+    end;
+  end;
   if(nomv<10)then
   begin
     if (RadioGroup1.Visible= True) then
