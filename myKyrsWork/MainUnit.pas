@@ -9,7 +9,6 @@ uses
 type
   TForm1 = class(TForm)
     Image2: TImage;
-    Image3: TImage;
     Image1: TImage;
     Image5: TImage;
     Image6: TImage;
@@ -23,13 +22,8 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure Image2MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
-    procedure Image3MouseDown(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
-    procedure Image3MouseUp(Sender: TObject; Button: TMouseButton;
-      Shift: TShiftState; X, Y: Integer);
     procedure Image1Click(Sender: TObject);
     procedure Image2Click(Sender: TObject);
-    procedure Image3Click(Sender: TObject);
     procedure Image5Click(Sender: TObject);
     procedure Image5MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
@@ -56,7 +50,7 @@ var
 
 implementation
 
-uses testEditForm, MainUnit2, Unit13, LoginForm;
+uses testEditForm, MainUnit2, LoginForm;
 
 {$R *.dfm}
 
@@ -88,20 +82,6 @@ begin
   Image2.Height:=Image2.Height+2;
 end;
 
-procedure TForm1.Image3MouseDown(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  Image3.Width:=Image3.Width-3;
-  Image3.Height:=Image3.Height-2;
-end;
-
-procedure TForm1.Image3MouseUp(Sender: TObject; Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  Image3.Width:=Image3.Width+3;
-  Image3.Height:=Image3.Height+2;
-end;
-
 procedure TForm1.Image1Click(Sender: TObject);
 begin
   form2.id:=1;
@@ -114,12 +94,6 @@ begin
   form2.id:=2;
   Form1.Hide();
   form2.Showmodal();
-end;
-
-procedure TForm1.Image3Click(Sender: TObject);
-begin
-  Form1.Hide();
-  form13.Showmodal();
 end;
 
 procedure TForm1.Image5Click(Sender: TObject);
