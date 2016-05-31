@@ -16,6 +16,7 @@ type
     Image3: TImage;
     Image4: TImage;
     Image5: TImage;
+    edit1: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -40,6 +41,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure Image4MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
+    procedure edit1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -51,6 +53,8 @@ var
   Form9: TForm9;
   fl:boolean;
   put:string;
+  timeStr:TStringList;
+
 implementation
 
 uses questionCreat,AdminMenu;
@@ -97,13 +101,23 @@ begin
 end;
 
 procedure TForm9.FormShow(Sender: TObject);
+var
+  f:textfile;
+  pa:string;
 begin
   ComboBox1.ItemIndex:=0;
+  timeStr := TStringList.Create;
+  assignfile (f,ExtractFileDir(ParamStr(0))+'\fldr\meta.bm' );
+  reset (f);
+  readln(f,pa);
+  ExtractStrings(['%'],['%'],PChar(pa),timeStr);
+  closefile (f);
 end;
 
 procedure TForm9.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
   clear_tabl();
+  edit1.Text:='';
   Form5.Show;
 end;
 
@@ -119,6 +133,7 @@ begin
   if (ComboBox1.ItemIndex=0)then
   begin
     clear_tabl();
+    edit1.Text:='';
     exit;
   end;
   if (ComboBox1.ItemIndex=1)then
@@ -127,6 +142,8 @@ begin
     put:=ExtractFileDir(ParamStr(0))+'\fldr\tesmmt.bm';
   if (ComboBox1.ItemIndex=3) then
     put:=ExtractFileDir(ParamStr(0))+'\fldr\tesmp.bm';
+  if  (ComboBox1.ItemIndex<>0) then
+    edit1.text:=timeStr[ComboBox1.ItemIndex-1];
   sl := TStringList.Create;
   assignfile (f, put);
   reset (f);
@@ -269,6 +286,7 @@ begin
           StringGrid1.Cells[2, j]:=StringGrid1.Cells[2,  j+1];
           StringGrid1.Cells[3, j]:=StringGrid1.Cells[3,  j+1];
           StringGrid1.Cells[4, j]:=StringGrid1.Cells[4,  j+1];
+          StringGrid1.Cells[5, j]:=StringGrid1.Cells[5,  j+1];
         end;
         if(StringGrid1.RowCount>2)then
         begin
@@ -296,8 +314,14 @@ begin
 end;
 
 procedure TForm9.Image4Click(Sender: TObject);
+var
+  f:TextFile;
 begin
   sohran();
+  assignfile (f,ExtractFileDir(ParamStr(0))+'\fldr\meta.bm' );
+  Rewrite (f);
+  writeln(f,timeStr[0]+'%'+timeStr[1]+'%'+timeStr[2]);
+  closefile (f);
   Close();
 end;
 
@@ -313,6 +337,16 @@ procedure TForm9.Image4MouseUp(Sender: TObject; Button: TMouseButton;
 begin
   Image4.Width:=Image4.Width+3;
   Image4.Height:=Image4.Height+2;
+end;
+
+procedure TForm9.edit1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (key in['0'..'9', #8]) then
+  begin
+    key:=#0;
+    Exit;
+  end;
+  timeStr[ComboBox1.ItemIndex-1]:=edit1.text+key;
 end;
 
 end.

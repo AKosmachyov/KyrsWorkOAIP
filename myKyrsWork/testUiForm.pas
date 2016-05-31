@@ -25,6 +25,7 @@ type
     Image7: TImage;
     CheckListBox1: TCheckListBox;
     Edit1: TEdit;
+    Label6: TLabel;
     procedure Timer1Timer(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -64,7 +65,7 @@ var
   Form10: TForm10;
   i,nomv:integer;
   bal:integer;
-  otvet:string;
+  otvet,timeStr:string;
   isnom,sl: TStringList;
 
 implementation
@@ -124,6 +125,7 @@ procedure TForm10.zapoln(id:integer);
 var
   f:textfile;
   pa,put:string;
+  timeFile:TstringList;
 begin
   if (id=1)then
     put:=ExtractFileDir(ParamStr(0))+'\fldr\tesmszu.bm';
@@ -140,6 +142,14 @@ begin
     ExtractStrings(['%'],['%'],PChar(pa),sl);
   end;
   closefile (f);
+  timeFile := TStringList.Create;
+  assignfile (f,ExtractFileDir(ParamStr(0))+'\fldr\meta.bm' );
+  reset (f);
+  readln(f,pa);
+  ExtractStrings(['%'],['%'],PChar(pa),timeFile);
+  closefile (f);
+  timeStr:=(timeFile[id-1]);
+  Label6.Caption:=timeStr;
 end;
 
 procedure TForm10.Timer1Timer(Sender: TObject);
@@ -223,10 +233,10 @@ begin
     form10.SetFocus;
     exit;
   end;
-  i:=300;
+  i:=StrToint(timeStr)*60;
   Timer1.Enabled:=true;
   Label2.Caption:='Время до окончания теста: ';
-  label3.Caption:='5:00';
+  label3.Caption:=timeStr+':00';
   Label3.Visible:=true;
   Label2.Visible:=true;
   Label3.Font.Color:=clGreen;

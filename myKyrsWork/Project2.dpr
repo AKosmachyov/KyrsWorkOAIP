@@ -13,8 +13,7 @@ uses
   testEditForm in 'testEditForm.pas',
   testUiForm in 'testUiForm.pas',
   questionCreat in 'questionCreat.pas',
-  questionEdit in 'questionEdit.pas',
-  Unit13 in 'Unit13.pas';
+  questionEdit in 'questionEdit.pas';
 
 {$R *.res}
 
@@ -32,6 +31,5 @@ begin
   Application.CreateForm(TForm10, Form10);
   Application.CreateForm(TForm11, Form11);
   Application.CreateForm(TForm12, Form12);
-  Application.CreateForm(TForm13, Form13);
   Application.Run;
 end.
