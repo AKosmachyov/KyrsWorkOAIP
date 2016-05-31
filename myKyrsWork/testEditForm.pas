@@ -17,6 +17,7 @@ type
     Image4: TImage;
     Image5: TImage;
     edit1: TEdit;
+    Label2: TLabel;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

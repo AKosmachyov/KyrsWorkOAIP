@@ -4108,6 +4108,13 @@ object Form9: TForm9
     OnMouseDown = Image4MouseDown
     OnMouseUp = Image4MouseUp
   end
+  object Label2: TLabel
+    Left = 590
+    Top = 13
+    Width = 117
+    Height = 13
+    Caption = #1042#1088#1077#1084#1103' '#1090#1077#1089#1090#1072' '#1074' '#1084#1080#1085#1091#1090#1072#1093
+  end
   object StringGrid1: TStringGrid
     Left = 10
     Top = 41
@@ -4133,7 +4140,7 @@ object Form9: TForm9
   object ComboBox1: TComboBox
     Left = 200
     Top = 10
-    Width = 560
+    Width = 380
     Height = 21
     AutoComplete = False
     Style = csDropDownList
@@ -4151,9 +4158,9 @@ object Form9: TForm9
       #1052#1077#1090#1086#1076' '#1087#1086#1090#1077#1085#1094#1080#1072#1083#1086#1074)
   end
   object edit1: TEdit
-    Left = 632
-    Top = 187
-    Width = 121
+    Left = 720
+    Top = 10
+    Width = 40
     Height = 21
     MaxLength = 3
     TabOrder = 2
