@@ -73,6 +73,56 @@ implementation
 uses MainUnit2;
 
 {$R *.dfm}
+function DecodeBase64(const CinLine: string): string;
+const
+  RESULT_ERROR = -2;
+var
+  inLineIndex: Integer;
+  c: Char;
+  x: SmallInt;
+  c4: Word;
+  StoredC4: array[0..3] of SmallInt;
+  InLineLength: Integer;
+begin
+  Result := '';
+  inLineIndex := 1;
+  c4 := 0;
+  InLineLength := Length(CinLine);
+
+  while inLineIndex <=InLineLength do
+  begin
+    while (inLineIndex <=InLineLength) and (c4 < 4) do
+    begin
+      c := CinLine[inLineIndex];
+      case c of
+        '+'     : x := 62;
+        '/'     : x := 63;
+        '0'..'9': x := Ord(c) - (Ord('0')-52);
+        '='     : x := -1;
+        'A'..'Z': x := Ord(c) - Ord('A');
+        'a'..'z': x := Ord(c) - (Ord('a')-26);
+      else
+        x := RESULT_ERROR;
+      end;
+      if x <> RESULT_ERROR then
+      begin
+        StoredC4[c4] := x;
+        Inc(c4);
+      end;
+      Inc(inLineIndex);
+    end;
+
+    if c4 = 4 then
+    begin
+      c4 := 0;
+      Result := Result + Char((StoredC4[0] shl 2) or (StoredC4[1] shr 4));
+      if StoredC4[2] = -1 then Exit;
+      Result := Result + Char((StoredC4[1] shl 4) or (StoredC4[2] shr 2));
+      if StoredC4[3] = -1 then Exit;
+      Result := Result + Char((StoredC4[2] shl 6) or (StoredC4[3]));
+    end;
+  end;
+end;
 
 procedure nvopros();
 var
@@ -139,7 +189,7 @@ begin
   while not EOF(f) do
   begin
     readln(f,pa);
-    ExtractStrings(['%'],['%'],PChar(pa),sl);
+    ExtractStrings(['%'],['%'],PChar(DecodeBase64(pa)),sl);
   end;
   closefile (f);
   timeFile := TStringList.Create;

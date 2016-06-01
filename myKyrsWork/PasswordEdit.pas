@@ -48,7 +48,6 @@ begin
   MessageBox(0,PAnsiChar(errCode[a]),'Ошибка', MB_OK Or MB_ICONINFORMATION);
   form6.Enabled:=true;
   form6.SetFocus;
-  //edit1.SetFocus;
 end;
 
 function getOldPass(): String;

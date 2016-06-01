@@ -4,7 +4,7 @@ uses
   Forms,
   MainUnit in 'MainUnit.pas',
   MainUnit2 in 'MainUnit2.pas',
-  Unit3 in 'Unit3.pas',
+  MaterialForm in 'MaterialForm.pas',
   LoginForm in 'LoginForm.pas',
   AdminMenu in 'AdminMenu.pas',
   PasswordEdit in 'PasswordEdit.pas',
