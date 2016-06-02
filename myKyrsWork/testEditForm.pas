@@ -43,6 +43,7 @@ type
     procedure Image4MouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure edit1KeyPress(Sender: TObject; var Key: Char);
+    procedure edit1Change(Sender: TObject);
   private
     { Private declarations }
   public
@@ -425,11 +426,12 @@ end;
 procedure TForm9.edit1KeyPress(Sender: TObject; var Key: Char);
 begin
   if not (key in['0'..'9', #8]) then
-  begin
-    key:=#0;
-    Exit;
-  end;
-  timeStr[ComboBox1.ItemIndex-1]:=edit1.text+key;
+    key:=#0;    
+end;
+
+procedure TForm9.edit1Change(Sender: TObject);
+begin
+  timeStr[ComboBox1.ItemIndex-1]:=edit1.text;
 end;
 
 end.

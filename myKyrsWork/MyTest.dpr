@@ -1,4 +1,4 @@
-program Project2;
+program MyTest;
 
 uses
   Forms,

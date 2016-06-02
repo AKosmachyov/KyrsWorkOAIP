@@ -4162,6 +4162,7 @@ object Form9: TForm9
     Height = 21
     MaxLength = 3
     TabOrder = 2
+    OnChange = edit1Change
     OnKeyPress = edit1KeyPress
   end
 end
